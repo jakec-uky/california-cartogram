@@ -10,16 +10,25 @@
 
 	<style type="text/css">
 		body {
-      background-color: #333333;
-      color: #eeeeee;
+      /*background-color: #eeeeee;*/
+      color: #333333;
+      font-family: sans-serif;
+    }
+    #map {
+      border: 1px solid #dddddd;
+      height: 700px;
+      margin-bottom: 2rem;
+      background-color: #ffffff;
     }
 	</style>
 </head>
 
 <body>
 
-	<h1>Cartogram Test</h1>
+	<h1>California population by county, 2000</h1>
 	<div id="map"></div>
+  <p>experimental draft by Jake Coolidge</p>
+  <p>data source: US Census</p>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
@@ -31,30 +40,54 @@
 			scrollWheelZoom: true,
 			zoomSnap: .5,
 			dragging: true,
-			zoomControl: false
+			zoomControl: true
 		}
 
-		var map = L.map('map', options).setView([41.505, -96.09], 5);
+		var map = L.map('map', options);//.setView([41.505, -116.09], 5);
 
-/*
+
 		// AJAX request for GeoJSON data
-		$.getJSON("data/us-counties.json", function (counties) {
-
-			// AJAX request for GeoJSON data
-			$.getJSON("data/removed-geometries.json", function (geoms) {
-
-				// AJAX request for CSV data
-				Papa.parse('data/us-unemployment-counties.csv', {
-					download: true,
-					header: true,
-					complete: function (data) {
-						drawRemovedGeoms(geoms)
-						processData(counties, data);
-					}
-				});
-			})
+		$.getJSON("data/ca_cartogram_2000_prj.json", function (counties) {
+      drawCartogram(counties);
+      console.log(counties);
 		});
 
+    function drawCartogram(counties) {
+      var dataLayer = L.geoJson(counties, {
+        style: function(feature) {
+          return {
+            color: '#ffffff',
+            weight: 1,
+            fillOpacity: 1,
+            fillColor: '#000000'
+          }
+        },
+        onEachFeature: function(feature, layer) {
+          layer.on('mouseover', function(){
+            layer.setStyle({
+              color: '#f0f40f',
+              weight: 2
+            }).bringToFront();
+          });
+          layer.on('mouseout', function() {
+            layer.setStyle({
+              color: '#ffffff',
+              weight: 1
+            });
+          });
+          var tooltipInfo = layer.feature.properties["name"] + " County<br />pop: " + layer.feature.properties["population"];
+          layer.bindTooltip(tooltipInfo, {
+            sticky: true,
+            tooltipAnchor: [200, 200]
+          })
+        }
+      }).addTo(map);
+
+      map.fitBounds(dataLayer.getBounds(), {
+        paddingTopLeft: [0,0]
+      });
+    }
+/*
 		function drawRemovedGeoms(geoms) {
 			var dataLayer = L.geoJson(geoms, {
 				style: function (feature) {
