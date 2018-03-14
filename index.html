@@ -57,13 +57,29 @@
 		<p>Integer sed augue lacus. Vestibulum eu interdum nulla. Quisque et lacus mauris. Donec aliquam hendrerit tincidunt. Nam et lectus leo. Aliquam odio lacus, tristique eget imperdiet vel, vulputate ut lectus. Integer leo diam, aliquet non arcu ac, euismod aliquam nunc. Sed vitae quam convallis ligula pretium fermentum. Phasellus at sapien fringilla, ultrices elit gravida, tempor leo. Morbi sed ligula nec ligula venenatis scelerisque. Praesent varius velit urna, et vehicula turpis luctus at. Phasellus non est sit amet mi gravida tincidunt. Mauris eu lorem ut ipsum cursus aliquam.</p>
 	</div>
 	<div id="map"></div>
-	<div id="ui-slider">
+	<!-- <div id="ui-slider">
 		<label>
 			<span class="min">1900</span>
 			<span class="max">2000</span>
 			<input type="range" min="1900" max="2000" value="1900" step="100" class="decade-slider"/></input>
 		</label>
-	</div>
+	</div> -->
+	<form>
+			<p>choose a year</p>
+			<div>
+				<input type="radio"
+				 name="contact" value="1920">
+				<label for="contactChoice1">1920</label>
+		
+				<input type="radio"
+				 name="contact" value="1940">
+				<label for="contactChoice2">1940</label>
+		
+				<input type="radio"
+				 name="contact" value="2000" checked>
+				<label for="contactChoice3">2000</label>
+			</div>
+		</form>
   <p>experimental draft by Jake Coolidge</p>
   <p>data source: US Census</p>
 
@@ -75,24 +91,41 @@
 	<script>
 		var options = {
 			scrollWheelZoom: true,
-			zoomSnap: .5,
+			zoomSnap: .2,
 			dragging: true,
-			zoomControl: true
+			zoomControl: true,
+			center: [40, -127],
+			zoom: 5
 		}
 
 		var map = L.map('map', options);//.setView([41.505, -116.09], 5);
 
+		var data2000 = $.getJSON("data/ca_cartogram_2000.json"),
+				data1940 = $.getJSON("data/ca_cartogram_1940.json"),
+				data1920 = $.getJSON("data/ca_cartogram_1920.json");
 
-		// AJAX request for GeoJSON data
-		$.getJSON("data/ca_cartogram_2000.json", function (counties) {
-			$.getJSON("data/adjacent_states.json", function (states) {
-				drawCartogram(counties);
-	      console.log(counties);
-			});
-		});
+		var layerMap = {
+			1920: data1920,
+			1940: data1940,
+			2000: data2000
+		}
 
-    function drawCartogram(counties) {
-      var dataLayer = L.geoJson(counties, {
+		$.when(data2000, data1940, data1920).then(ready);
+
+		function ready(data2000, data1940, data1920) {
+
+			drawCartogram(data2000)
+			buildUI(data2000, data1940, data1920)
+
+		}
+
+    function drawCartogram(geojson) {
+
+			map.eachLayer(function(layer) {
+				map.removeLayer(layer);
+			})
+
+      L.geoJson(geojson, {
         style: function(feature) {
           return {
             color: '#ffffff',
@@ -122,251 +155,21 @@
         }
       }).addTo(map);
 
-      map.fitBounds(dataLayer.getBounds(), {
-        paddingTopLeft: [0,0]
-      });
-    }
+      // map.fitBounds(dataLayer.getBounds(), {
+      //   paddingTopLeft: [0,0]
+      // });
+		}
+		
+		function buildUI(data2000, data1940, data1920) {
 
-		function updateMap(dataLayer, colorize, currentYear) {
-			//obviously, this was written to assign new colors to existing geometries
-			//based on user input. in contrast, i'm interested in REMOVING one json layer
-			//and adding a different one based on user input
-			// loop through data once
-			map.removeLayer(dataLayer)
-			dataLayer.eachLayer(function (layer) {
-
-				//set the tooltip content based on what's being passed to the function
-				var tooltipInfo = "<b>" + layer.feature.properties["NAME"] + "</b><br>" +
-					layer.feature.properties[currentYear] + "% unemployment in " + [currentYear];
-				//apply above to the tooltip
-				layer.setTooltipContent(tooltipInfo);
-				//create a variable from the properties
-				var props = layer.feature.properties;
-				//use the variable above in this set style. also colorize based on what's being passed to the function
-				layer.setStyle({
-					fillColor: colorize(Number(props[currentYear]))
-				})
+			$("form input").on("input change", function() {
+				drawCartogram(layerMap[this.value].responseJSON)
 			})
-		} //end updateMap
 
-		function createSliderUI(dataLayer, colorize) {
-			var sliderControl = L.control({
-				position: 'bottomleft'
-			});
 
-			sliderControl.onAdd = function (map) {
-				var slider = L.DomUtil.get("ui-slider");
-				L.DomEvent.disableScrollPropagation(slider);
-				L.DomEvent.disableClickPropagation(slider);
-				return slider;
-			}
 
-			sliderControl.addTo(map);
-
-			$(".decade-slider").on("input change", function () {
-				var currentYear = this.value;
-				console.log("slider happened");
-				updateMap(dataLayer, colorize, currentYear)
-				//updateLegend(currentYear)
-			});
-		} //end createSliderUI
-
-// end cartogram script
-/*
-		function drawRemovedGeoms(geoms) {
-			var dataLayer = L.geoJson(geoms, {
-				style: function (feature) {
-					return {
-						color: 'black',
-						weight: 1,
-						fillOpacity: 1,
-						fillColor: '#dddddd'
-					};
-				},
-				onEachFeature: function (feature, layer) {
-					// when mousing over a layer
-					layer.on('mouseover', function () {
-						// change the stroke color and bring that element to the front
-						layer.setStyle({
-							color: '#ffffff' //'#ff6e00'
-						}).bringToFront();
-					});
-					// on mousing off layer
-					layer.on('mouseout', function () {
-						// reset the layer style to its original stroke color
-						layer.setStyle({
-							color: 'black'
-						});
-					});
-					layer.bindTooltip("No data available", {
-						sticky: true,
-						tooltipAnchor: [200, 200]
-					});
-				}
-			}).addTo(map);
-		};
-
-		function processData(counties, data) {
-			//loop through all counties
-			for (var i = 0; i < counties.features.length; i++) {
-				//create a variable for county properties because it's kind of long to write out
-				var props = counties.features[i].properties;
-				//for each of the csv data rows
-				for (var j = 0; j < data.data.length; j++) {
-					//conditional statement to see if county fips code and data fips code match; remember they have different names
-					if (props.GEOID === data.data[j].STATE_FIP + data.data[j].COUNTY_FIP) {
-						//console.log('county geoid: ', props.GEOID);
-						//console.log('data fip: ', (data.data[j].STATE_FIP + data.data[j].COUNTY_FIP));
-						counties.features[i].properties = data.data[j];
-						//console.log(counties.features[i]);
-						break; //this speeds up processing by kicking back out to the outer loop when a match is found in the inner loop
-					}
-				}
-			} // end of outer loop
-
-			console.log('after: ', counties);
-			// looks good!
-
-			// now that the counties have had year-by-year stats appended to them, we can come up with a data classification scheme
-
-			// create an empty array to store all data values across all years
-			var rates = [];
-
-			//iterate through all counties
-			counties.features.forEach(function (county) {
-				//iterate through all the props of each county
-				for (var prop in county.properties) {
-					//if the attribute is a number and not one of the fips codes or a name
-					//prop != "NAME" (rates.push(Number(county.properties[prop]));)
-					if (prop != "COUNTY_FIP" && prop != "STATE_FIP" && prop != "NAME") {
-						rates.push(Number(county.properties[prop]));
-					}
-				}
-			});
-
-			// verify the result!
-			console.log(rates);
-
-			var breaks = chroma.limits(rates, 'q', 5);
-			//console.log(breaks);
-
-			var colorize = chroma.scale(chroma.brewer.OrRd).classes(breaks).mode('lab');
-			console.log(colorize(7));
-			drawMap(counties, colorize);
-			drawLegend(breaks, colorize);
-		};
-
-		function drawMap(counties, colorize) {
-			var dataLayer = L.geoJson(counties, {
-				style: function (feature) {
-					return {
-						color: 'black',
-						weight: 1,
-						fillOpacity: 1,
-						fillColor: '#1f78b4'
-					};
-				},
-				onEachFeature: function (feature, layer) {
-					// when mousing over a layer
-					layer.on('mouseover', function () {
-						// change the stroke color and bring that element to the front
-						layer.setStyle({
-							color: '#ffffff' //'#ff6e00'
-						}).bringToFront();
-					});
-					// on mousing off layer
-					layer.on('mouseout', function () {
-						// reset the layer style to its original stroke color
-						layer.setStyle({
-							color: 'black'
-						});
-					});
-					// begin by binding an empty tooltip
-					layer.bindTooltip('', {
-							sticky: true,
-							tooltipAnchor: [200, 200]
-						});
-						}
-					}).addTo(map);
-
-			// fit bounds to bounding box of continental us
-			map.fitBounds([[51.2, -65.43], [21.9, -125.5]])
-
-			updateMap(dataLayer, colorize, '2001');
-			createSliderUI(dataLayer, colorize);
 		}
 
-		function updateMap(dataLayer, colorize, currentYear) {
-			// loop through data once
-			dataLayer.eachLayer(function (layer) {
-
-
-				var tooltipInfo = "<b>" + layer.feature.properties["NAME"] + "</b><br>" +
-					layer.feature.properties[currentYear] + "% unemployment in " + [currentYear];
-
-				layer.setTooltipContent(tooltipInfo);
-
-				var props = layer.feature.properties;
-
-				layer.setStyle({
-					fillColor: colorize(Number(props[currentYear]))
-				})
-			})
-		} //end updateMap
-
-		function createSliderUI(dataLayer, colorize) {
-			var sliderControl = L.control({
-				position: 'bottomleft'
-			});
-
-			sliderControl.onAdd = function (map) {
-				var slider = L.DomUtil.get("ui-controls");
-				L.DomEvent.disableScrollPropagation(slider);
-				L.DomEvent.disableClickPropagation(slider);
-				return slider;
-			}
-
-			sliderControl.addTo(map);
-
-			$(".year-slider").on("input change", function () {
-				var currentYear = this.value;
-				updateMap(dataLayer, colorize, currentYear)
-				updateLegend(currentYear)
-			});
-		} //end createSliderUI
-
-		function drawLegend(breaks, colorize) {
-			var legendControl = L.control({
-				position: 'topright'
-			});
-
-			legendControl.onAdd = function (map) {
-				//create a div with the id legend; it will be empty at this point
-				var legend = L.DomUtil.create('div', 'legend');
-				return legend;
-			};
-
-			legendControl.addTo(map);
-
-			//use jQuery ($) to select the div with id legend created above
-			var legend = $('.legend').html("<h3><span>2001</span> Unemployment Rates</h3><ul>");
-			console.log(breaks);
-
-			for (var i = 0; i < breaks.length - 1; i++) {
-				var color = colorize(breaks[i], breaks);
-				var classRange = '<li><span style="background:' + color + '"></span><label>' +
-					breaks[i].toLocaleString() + ' &mdash; ' +
-					breaks[i + 1].toLocaleString() + '%</label></li>'
-
-				$('.legend ul').append(classRange);
-			}
-
-			legend.append("</ul>");
-		}
-
-		function updateLegend(currentYear) {
-			var legendYear = $('.legend h3 span').html(currentYear)
-		}*/
 	</script>
 
 </body>
