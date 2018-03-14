@@ -20,6 +20,15 @@
       margin-bottom: 2rem;
       background-color: #ffffff;
     }
+		#ui-slider{
+			width: 130px;
+		}
+		#ui-slider .min {
+			float:left;
+		}
+		#ui-slider .max {
+			float:right;
+		}
 	</style>
 </head>
 
@@ -27,6 +36,13 @@
 
 	<h1>California population by county, 2000</h1>
 	<div id="map"></div>
+	<div id="ui-slider">
+		<label>
+			<span class="min">1900</span>
+			<span class="max">2000</span>
+			<input type="range" min="1900" max="2000" value="1900" step="100" class="decade-slider"/></input>
+		</label>
+	</div>
   <p>experimental draft by Jake Coolidge</p>
   <p>data source: US Census</p>
 
@@ -47,9 +63,11 @@
 
 
 		// AJAX request for GeoJSON data
-		$.getJSON("data/ca_cartogram_2000_prj.json", function (counties) {
-      drawCartogram(counties);
-      console.log(counties);
+		$.getJSON("data/ca_cartogram_2000.json", function (counties) {
+			$.getJSON("data/adjacent_states.json", function (states) {
+				drawCartogram(counties);
+	      console.log(counties);
+			});
 		});
 
     function drawCartogram(counties) {
@@ -87,6 +105,52 @@
         paddingTopLeft: [0,0]
       });
     }
+
+		function updateMap(dataLayer, colorize, currentYear) {
+			//obviously, this was written to assign new colors to existing geometries
+			//based on user input. in contrast, i'm interested in REMOVING one json layer
+			//and adding a different one based on user input
+			// loop through data once
+			map.removeLayer(dataLayer)
+			dataLayer.eachLayer(function (layer) {
+
+				//set the tooltip content based on what's being passed to the function
+				var tooltipInfo = "<b>" + layer.feature.properties["NAME"] + "</b><br>" +
+					layer.feature.properties[currentYear] + "% unemployment in " + [currentYear];
+				//apply above to the tooltip
+				layer.setTooltipContent(tooltipInfo);
+				//create a variable from the properties
+				var props = layer.feature.properties;
+				//use the variable above in this set style. also colorize based on what's being passed to the function
+				layer.setStyle({
+					fillColor: colorize(Number(props[currentYear]))
+				})
+			})
+		} //end updateMap
+
+		function createSliderUI(dataLayer, colorize) {
+			var sliderControl = L.control({
+				position: 'bottomleft'
+			});
+
+			sliderControl.onAdd = function (map) {
+				var slider = L.DomUtil.get("ui-slider");
+				L.DomEvent.disableScrollPropagation(slider);
+				L.DomEvent.disableClickPropagation(slider);
+				return slider;
+			}
+
+			sliderControl.addTo(map);
+
+			$(".decade-slider").on("input change", function () {
+				var currentYear = this.value;
+				console.log("slider happened");
+				updateMap(dataLayer, colorize, currentYear)
+				//updateLegend(currentYear)
+			});
+		} //end createSliderUI
+
+// end cartogram script
 /*
 		function drawRemovedGeoms(geoms) {
 			var dataLayer = L.geoJson(geoms, {
@@ -227,7 +291,7 @@
 					fillColor: colorize(Number(props[currentYear]))
 				})
 			})
-		}
+		} //end updateMap
 
 		function createSliderUI(dataLayer, colorize) {
 			var sliderControl = L.control({
@@ -248,7 +312,7 @@
 				updateMap(dataLayer, colorize, currentYear)
 				updateLegend(currentYear)
 			});
-		}
+		} //end createSliderUI
 
 		function drawLegend(breaks, colorize) {
 			var legendControl = L.control({
