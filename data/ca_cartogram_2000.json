@@ -276,7 +276,7 @@
         "area_sqmi": 1007.81,
         "color": "blue",
         "colorgroup": "e",
-        "hex": "#348902",
+        "hex": "#348899",
         "population": 27507,
         "year": 2000
       },
@@ -716,7 +716,7 @@
         "area_sqmi": 2553.69,
         "color": "red orange",
         "colorgroup": "i",
-        "hex": "#df5a50",
+        "hex": "#df5a49",
         "population": 20824,
         "year": 2000
       },
@@ -814,7 +814,7 @@
         "area_sqmi": 953.38,
         "color": "red orange",
         "colorgroup": "i",
-        "hex": "#df5a52",
+        "hex": "#df5a49",
         "population": 3555,
         "year": 2000
       },
@@ -1220,7 +1220,7 @@
         "area_sqmi": 1150.68,
         "color": "blue",
         "colorgroup": "e",
-        "hex": "#348901",
+        "hex": "#348899",
         "population": 18804,
         "year": 2000
       },
@@ -1554,7 +1554,7 @@
         "area_sqmi": 592.97,
         "color": "blue",
         "colorgroup": "e",
-        "hex": "#348900",
+        "hex": "#348899",
         "population": 35100,
         "year": 2000
       },
@@ -1749,7 +1749,7 @@
         "area_sqmi": 3044.4,
         "color": "blue",
         "colorgroup": "e",
-        "hex": "#348904",
+        "hex": "#348899",
         "population": 12853,
         "year": 2000
       },
@@ -1831,7 +1831,7 @@
         "area_sqmi": 1493.79,
         "color": "red orange",
         "colorgroup": "i",
-        "hex": "#df5a53",
+        "hex": "#df5a49",
         "population": 446997,
         "year": 2000
       },
@@ -3314,7 +3314,7 @@
         "area_sqmi": 2737.01,
         "color": "red orange",
         "colorgroup": "i",
-        "hex": "#df5a51",
+        "hex": "#df5a49",
         "population": 399347,
         "year": 2000
       },

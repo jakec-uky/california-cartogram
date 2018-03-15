@@ -42,7 +42,8 @@
 			height: 220px;
 			left: 18px;
 			bottom: 18px;
-			background: white;
+			background-color: #dddddd;
+			border: 2px solid #ffffff;
 		}
 		#ui-slider{
 			width: 130px;
@@ -52,6 +53,27 @@
 		}
 		#ui-slider .max {
 			float:right;
+		}
+		.legend-label {
+			position: absolute;
+			width: 0px;
+			font-size: 1em;
+			background-color: rgba(0,0,0,0);
+			border: 0px solid rgba(0,0,0,0);
+			box-shadow: 0 1px 3px rgba(0,0,0,0);
+		}
+		.legend-label::before {
+			border-right-color: rgba(0,0,0,0);
+		}
+		.legend-label p {
+			margin: 0;
+		}
+		.legend-label hr {
+			width: 10px;
+			margin: 0;
+		}
+		#inset-map .leaflet-tooltip-left:before {
+			border-left-color: rgba(0,0,0,0)
 		}
 	</style>
 </head>
@@ -66,7 +88,8 @@
 		<p>Integer sed augue lacus. Vestibulum eu interdum nulla. Quisque et lacus mauris. Donec aliquam hendrerit tincidunt. Nam et lectus leo. Aliquam odio lacus, tristique eget imperdiet vel, vulputate ut lectus. Integer leo diam, aliquet non arcu ac, euismod aliquam nunc. Sed vitae quam convallis ligula pretium fermentum. Phasellus at sapien fringilla, ultrices elit gravida, tempor leo. Morbi sed ligula nec ligula venenatis scelerisque. Praesent varius velit urna, et vehicula turpis luctus at. Phasellus non est sit amet mi gravida tincidunt. Mauris eu lorem ut ipsum cursus aliquam.</p>
 	</div>
 	<div id="map">
-		<div id="inset-map"></div>
+		<div id="inset-map"><p>Number of persons</p>
+		</div>
 	</div>
 	<!-- <div id="ui-slider">
 		<label>
@@ -79,13 +102,25 @@
 			<p>choose a year</p>
 			<div>
 				<input type="radio"
+				 name="contact" value="1900">
+				<label for="contactChoice1">1900</label>
+
+				<input type="radio"
 				 name="contact" value="1920">
 				<label for="contactChoice1">1920</label>
-		
+
 				<input type="radio"
 				 name="contact" value="1940">
 				<label for="contactChoice2">1940</label>
-		
+
+				<input type="radio"
+				 name="contact" value="1960">
+				<label for="contactChoice1">1960</label>
+
+				<input type="radio"
+				 name="contact" value="1980">
+				<label for="contactChoice1">1980</label>
+
 				<input type="radio"
 				 name="contact" value="2000" checked>
 				<label for="contactChoice3">2000</label>
@@ -111,7 +146,7 @@
 			zoom: 5,
 			minZoom: 5,
 			maxZoom: 7
-			
+
 		}
 
 		var map = L.map('map', options);//.setView([41.505, -116.09], 5);
@@ -122,14 +157,24 @@
 			center: [0,0],
 			zoom: 5,
 			zoomControl: false,
-			attribution: false
+			attribution: false,
+			zoomSnap: .2,
+			scrollWheelZoom: false
 			// pan false
 		})
 
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-		}).addTo(insetMap)
+		var legendLabel10k = new L.marker([-0.6862,-0.91], {opacity: 0.00});
+		legendLabel10k.bindTooltip("<p>10,000</p>", {permanent: true, className: "legend-label", direction: "left", offset: [-11,28]});
+		legendLabel10k.addTo(insetMap);
+
+		var legendLabel640k = new L.marker([0.91,-0.91], {opacity: 0.00});//[0.91,0.91]
+		legendLabel640k.bindTooltip("<p>640,000</p>", {permanent: true, className: "legend-label", direction: "left", offset: [-20,28]});
+		legendLabel640k.addTo(insetMap);
+
+		// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		// 	maxZoom: 19,
+		// 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		// }).addTo(insetMap)
 
 		map.on("zoomend", function() {
 			var currentZoomLevel = map.getZoom()
@@ -138,31 +183,66 @@
 
 		// deferred requests for data
 		var data2000 = $.getJSON("data/ca_cartogram_2000.json"),
+				data1980 = $.getJSON("data/ca_cartogram_1980.json"),
+				data1960 = $.getJSON("data/ca_cartogram_1960.json"),
 				data1940 = $.getJSON("data/ca_cartogram_1940.json"),
-				data1920 = $.getJSON("data/ca_cartogram_1920.json")
-				// legendData = $.getJSON("data/legend_cartogram.json")
+				data1920 = $.getJSON("data/ca_cartogram_1920.json"),
+				data1900 = $.getJSON("data/ca_cartogram_1900.json")
+				legendData = $.getJSON("data/legend.json")
 
 		// map
 		var layerMap = {
+			1900: data1900,
 			1920: data1920,
 			1940: data1940,
+			1960: data1960,
+			1980: data1980,
 			2000: data2000
 		}
 
-		$.when(data2000, data1940, data1920).then(ready);
+		$.when(data2000, data1980, data1960, data1940, data1920, data1900, legendData).then(ready);
 
-		function ready(data2000, data1940, data1920) {
+		function ready(data2000, data1980, data1960, data1940, data1920, data1900, legendData) {
 
 			// drawLegend(legendGeoJson)
 
 			drawCartogram(data2000)
-			buildUI(data2000, data1940, data1920)
+			buildUI(data2000, data1980, data1960, data1940, data1920, data1900)
+			drawLegend(legendData)
 
 		}
 
 		function drawLegend(data) {
 
-			L.geoJson(data).addTo(insetMap)
+			L.geoJson(data, {
+				style: function(feature) {
+					return {
+						color: '#ffffff',
+						weight: 1,
+						fillOpacity: 0,
+						fillColor: '#000000'
+					}
+				},
+				onEachFeature: function(feature, layer) {
+					layer.on('mouseover', function(){
+						layer.setStyle({
+							color: '#f0f40f',
+							weight: 2
+						}).bringToFront();
+					})
+					layer.on('mouseout', function(){
+						layer.setStyle({
+							color: '#ffffff',
+							weight: 1
+						})
+					})
+					var legendTooltip = layer.feature.properties["label"];
+					layer.bindTooltip(legendTooltip, {
+						sticky: true,
+						tooltipAnchor: [200, 200]
+					})
+				}
+			}).addTo(insetMap)
 
 		}
 
@@ -186,7 +266,7 @@
             layer.setStyle({
               color: '#f0f40f',
               weight: 2
-            }).bringToFront();
+            })//.bringToFront();
           });
           layer.on('mouseout', function() {
             layer.setStyle({
@@ -194,7 +274,7 @@
               weight: 1
             });
           });
-          var tooltipInfo = layer.feature.properties["name"] + " County<br />pop: " + layer.feature.properties["population"].toLocaleString();
+          var tooltipInfo = layer.feature.properties["name"] + " County<br />pop. " + layer.feature.properties["year"] + ": "+ layer.feature.properties["population"].toLocaleString();
           layer.bindTooltip(tooltipInfo, {
             sticky: true,
             tooltipAnchor: [200, 200]
@@ -206,8 +286,8 @@
       //   paddingTopLeft: [0,0]
       // });
 		}
-		
-		function buildUI(data2000, data1940, data1920) {
+
+		function buildUI(data2000, data1980, data1960, data1940, data1920, data1900) {
 
 			$("form input").on("input change", function() {
 				drawCartogram(layerMap[this.value].responseJSON)
