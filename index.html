@@ -3,10 +3,11 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Cartogram Test</title>
+	<title>A Century of Growth: Population in California</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css">
+	<link href="https://api.mapbox.com/mapbox-assembly/v0.21.0/assembly.min.css" rel="stylesheet">
 
 	<style type="text/css">
 		body {
@@ -23,11 +24,38 @@
 		p {
 			margin: 5px 1em 1em 5px;
 		}
+		#title-element{
+			margin: 0;
+			z-index: 1000;
+		}
+		#title-element p {
+			margin: 7px 0 7px 0;
+			font-size: 3em;
+			line-height: 0.75em;
+		}
+		#title-element p span {
+			font-size: 0.75em;
+		}
 		#descriptive-text {
 			float: left;
+			top: 30px;
 			width: 25%;
 			height: 700px;
 			overflow: scroll;
+		}
+		#discussion-text {
+			position: absolute;
+			top: 10px;
+			right: 50px;
+			background-color: white;
+			max-width: 200px;
+			padding: 10px;
+		}
+		#discussion-text h1 {
+			font-size: 2em;
+		}
+		#discussion-text h3 {
+			font-size: 1.25em;
 		}
     #map {
       border: 1px solid #dddddd;
@@ -75,21 +103,111 @@
 		#inset-map .leaflet-tooltip-left:before {
 			border-left-color: rgba(0,0,0,0)
 		}
+		#year-selector {
+			position: absolute;
+			z-index: 1000;
+			background-color: rgba(256,256,256,0.2);
+			/* background-image: url(img/test.JPG); */
+			bottom: 18px;
+			left: 250px;
+			padding: 10px;
+		}
+		#year-selector hr {
+			border: 0;
+			height: 10px;
+			background: #333;
+			background-image: linear-gradient(to right, #ccc, #333, #ccc);
+			/* position: inherit; */
+			bottom: -1px;
+		}
+		label p {
+			float: right;
+		}
 	</style>
 </head>
 
 <body>
 
-	<h1>A Century of Growth</h1>
-	<h2>population in California, 1900&ndash;2000</h2>
+
+	<div id="title-element">
+		<p><strong>A Century of Growth: <span>population in California, 1900&ndash;2000</span></strong></p>
+		<!--h2 class="mt3"></h2-->
+	</div>
 	<div id="descriptive-text">
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis dolor enim. Morbi posuere orci et erat feugiat faucibus quis a nunc. Morbi pharetra odio et tellus ultrices, vitae gravida arcu mattis. Vestibulum vitae purus iaculis, pellentesque nisl vitae, tincidunt diam. Vivamus at velit purus. Mauris pretium sapien risus, blandit sollicitudin orci faucibus a. Nullam convallis hendrerit bibendum. Pellentesque ex erat, vulputate ut placerat in, vehicula at diam. Sed nec ex sed tellus placerat bibendum. Morbi sollicitudin dolor vel feugiat viverra. Praesent cursus justo ac lacus condimentum, viverra mattis erat congue. Maecenas venenatis mi sit amet elit vestibulum scelerisque. Maecenas consectetur nibh et libero pulvinar maximus. Duis sed ultrices ipsum. Suspendisse maximus vitae odio eu fermentum. Integer mattis sit amet nisl ac lobortis.</p>
 		<p>Sed blandit gravida commodo. Ut sem orci, semper iaculis dictum et, fermentum in odio. Aliquam at varius elit, non auctor tortor. Vivamus eget diam lacus. Fusce euismod non magna non pulvinar. In nisl turpis, porta a tempus nec, rutrum a orci. Nam libero nisi, dapibus in ex et, venenatis viverra risus. Ut at nunc lectus. In at dolor magna. Sed sollicitudin, enim eget tempor ultrices, tellus odio scelerisque erat, a pretium arcu mi at tortor. Morbi commodo diam eu tempus cursus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque id ex eros. Etiam nec mattis mauris.</p>
 		<p>Integer sed augue lacus. Vestibulum eu interdum nulla. Quisque et lacus mauris. Donec aliquam hendrerit tincidunt. Nam et lectus leo. Aliquam odio lacus, tristique eget imperdiet vel, vulputate ut lectus. Integer leo diam, aliquet non arcu ac, euismod aliquam nunc. Sed vitae quam convallis ligula pretium fermentum. Phasellus at sapien fringilla, ultrices elit gravida, tempor leo. Morbi sed ligula nec ligula venenatis scelerisque. Praesent varius velit urna, et vehicula turpis luctus at. Phasellus non est sit amet mi gravida tincidunt. Mauris eu lorem ut ipsum cursus aliquam.</p>
 	</div>
 	<div id="map">
-		<div id="inset-map"><p>Number of persons</p>
+		<div id="discussion-text">
 		</div>
+		<div id="inset-map">
+			<p><strong>Number of persons</strong></p>
+		</div>
+		<form id="year-selector">
+			<p>
+				<strong>select a year</strong>
+			</p>
+			<!--hr /-->
+			<label class="radio-container">
+				<input name="radio-basic" type="radio" value="1900"/>
+				<div class="radio ml6 mr6"></div>
+				1900
+			</label>
+			<label class="radio-container">
+				<input name="radio-basic" type="radio" value="1920"/>
+				<div class="radio ml6 mr6"></div>
+				1920
+			</label>
+			<label class="radio-container">
+				<input name="radio-basic" type="radio" value="1940"/>
+				<div class="radio ml6 mr6"></div>
+				1940
+			</label>
+			<label class="radio-container">
+				<input name="radio-basic" type="radio" value="1960"/>
+				<div class="radio ml6 mr6"></div>
+				1960
+			</label>
+			<label class="radio-container">
+				<input name="radio-basic" type="radio" value="1980"/>
+				<div class="radio ml6 mr6"></div>
+				1980
+			</label>
+			<label class="radio-container">
+				<input name="radio-basic" type="radio" value="2000" checked/>
+				<div class="radio ml6 mr6"></div>
+				2000
+			</label>
+		</form>
+		<!--form id="year-selector">
+				<p>choose a year</p>
+				<div>
+					<input type="radio"
+					 name="contact" value="1900">
+					<label for="contactChoice1">1900</label>
+
+					<input type="radio"
+					 name="contact" value="1920">
+					<label for="contactChoice1">1920</label>
+
+					<input type="radio"
+					 name="contact" value="1940">
+					<label for="contactChoice2">1940</label>
+
+					<input type="radio"
+					 name="contact" value="1960">
+					<label for="contactChoice1">1960</label>
+
+					<input type="radio"
+					 name="contact" value="1980">
+					<label for="contactChoice1">1980</label>
+
+					<input type="radio"
+					 name="contact" value="2000" checked>
+					<label for="contactChoice3">2000</label>
+				</div>
+			</form-->
 	</div>
 	<!-- <div id="ui-slider">
 		<label>
@@ -98,51 +216,60 @@
 			<input type="range" min="1900" max="2000" value="1900" step="100" class="decade-slider"/></input>
 		</label>
 	</div> -->
-	<form>
-			<p>choose a year</p>
-			<div>
-				<input type="radio"
-				 name="contact" value="1900">
-				<label for="contactChoice1">1900</label>
 
-				<input type="radio"
-				 name="contact" value="1920">
-				<label for="contactChoice1">1920</label>
-
-				<input type="radio"
-				 name="contact" value="1940">
-				<label for="contactChoice2">1940</label>
-
-				<input type="radio"
-				 name="contact" value="1960">
-				<label for="contactChoice1">1960</label>
-
-				<input type="radio"
-				 name="contact" value="1980">
-				<label for="contactChoice1">1980</label>
-
-				<input type="radio"
-				 name="contact" value="2000" checked>
-				<label for="contactChoice3">2000</label>
-			</div>
-		</form>
   <p>experimental draft by Jake Coolidge</p>
   <p>data source: US Census</p>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.6/papaparse.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.5/chroma.min.js"></script>
+	<script async defer src="https://api.mapbox.com/mapbox-assembly/v0.21.0/assembly.js"></script>
 
 	<script>
 
+		var discussion1900 =
+			'<h1>1900</h1>' +
+			'<h3>total population: <br />1,485,053</h3>' +
+			'<h3>72% increase since 1880</h3>' +
+			"<p>Having been made a state fifty years earlier, California entered the century with a population comparable to the city of San Diego's current population. At this time, nearly 1 in every 4 Californians lived in the city and county of San Francisco. Overland transportation routes were about augment the sea lanes to open California up to the the US and the world, igniting a century-long population boom. Note that Imperial County was still a part of San Diego County at this time (it was split off from San Diego and made into its own county in 1907).</p>"
+
+		var discussion1920 =
+			'<h1>1920</h1>' +
+			'<h3>total population: <br />3,426,861</h3>' +
+			'<h3>131% increase since 1900</h3>' +
+			"<p>Los Angeles grows quickly in the first twenty years of the century to overtake San Francisco's population, aided in part by the completion of the first Los Angeles Aqueduct in 1908. Alameda County begins to absorb many new Bay Area residents&mdash;including some San Francisco residents displaced by the 1906 earthquake. Rapid industrialization, including a burgeoning food-processing sector and shipbuilding efforts to support the First World War, draw migrants from all over the world to California's urban centers.</p>"
+
+		var discussion1940 =
+			'<h1>1940</h1>' +
+			'<h3>total population: 6,907,387</h3>' +
+			'<h3>102% increase since 1920</h3>' +
+			'<p>The diversifying industrial base of Los Angeles, including the emergence of the film industry, leads to extraordinary growth. Public works like the Golden Gate and San Francisco-Oakland Bay Bridges are completed from 1920 to 1940 to accommodate the influx of residents. San Francisco, Alameda, and Sacramento counties also see gains, but many suburban counties, like Orange in the south and Santa Clara in the Bay Area, see only modest gains up to this point.</p>'
+
+		var discussion1960 =
+			'<h1>1960</h1>' +
+			'<h3>total population: 15,717,204</h3>' +
+			'<h3>128% increase since 1940</h3>' +
+			'<p>The post-war boom is perhaps the most significant of all. California emerges from the Second World War as a center for the aerospace industry, adding to its predominance in intensive agricultural production, media, manufacturing, and petroleum refining. The emergence of aerospace fosters hotbeds for technological innovation.</p>'
+
+		var discussion1980 =
+			'<h1>1980</h1>' +
+			'<h3>total population: 23,667,902</h3>' +
+			'<h3>51% increase since 1960</h3>' +
+			"<p>During this period, California continues to grow faster than the nation, though more slowly than in past decades. Intensive economic development takes a serious toll on the environment, leading many residents to begin efforts to reduce intolerable smog in Southern California and clean a heavily polluted San Francisco Bay. Additional suburban counties like San Bernardino and Ventura in the south and Contra Costa in the north see considerable gains during this time.</p>"
+
+		var discussion2000 =
+			'<h1>2000</h1>' +
+			'<h3>total population: 33,871,648</h3>' +
+			'<h3>43% increase since 1980</h3>' +
+			"<p>California closed out the century with a population larger than Canada and the world's sixth-largest economy. And yet, to this day there are counties in the state with fewer than 10,000 persons and population densities of less than 4 persons per square mile. Clearly, this cartogram tells a story of population enumerated at the county level, but barely hints at the geographic diversity of the state's land forms. Select other years to see this story of population growth unfold over the twentieth century.</p>"
+
+		$('#discussion-text').html(discussion2000)
 
 		var options = {
 			scrollWheelZoom: true,
 			zoomSnap: .2,
 			dragging: true,
-			zoomControl: true,
-			center: [40, -127],
+			zoomControl: false, //adding it back in later, in the topright corner
+			center: [38.3896, -120.5889],
 			zoom: 5,
 			minZoom: 5,
 			maxZoom: 7
@@ -159,8 +286,8 @@
 			zoomControl: false,
 			attribution: false,
 			zoomSnap: .2,
-			scrollWheelZoom: false
-			// pan false
+			scrollWheelZoom: false,
+			dragging: false
 		})
 
 		var legendLabel10k = new L.marker([-0.6862,-0.91], {opacity: 0.00});
@@ -180,6 +307,8 @@
 			var currentZoomLevel = map.getZoom()
 			insetMap.setZoom(currentZoomLevel)
 		})
+
+		map.addControl(L.control.zoom({position: 'topright'}));
 
 		// deferred requests for data
 		var data2000 = $.getJSON("data/ca_cartogram_2000.json"),
@@ -281,20 +410,32 @@
           })
         }
       }).addTo(map);
-
-      // map.fitBounds(dataLayer.getBounds(), {
-      //   paddingTopLeft: [0,0]
-      // });
 		}
 
 		function buildUI(data2000, data1980, data1960, data1940, data1920, data1900) {
 
 			$("form input").on("input change", function() {
 				drawCartogram(layerMap[this.value].responseJSON)
+				updateDiscussion(this.value)
+				//console.log(this.value);
 			})
+		}
 
-
-
+		function updateDiscussion(selectedYear){
+			//console.log(selectedYear);
+			if (selectedYear ==1900) {
+				$('#discussion-text').html(discussion1900)
+			} else if (selectedYear==1920){
+				$('#discussion-text').html(discussion1920)
+			} else if (selectedYear==1940){
+				$('#discussion-text').html(discussion1940)
+			} else if (selectedYear==1960){
+				$('#discussion-text').html(discussion1960)
+			} else if (selectedYear==1980){
+				$('#discussion-text').html(discussion1980)
+			} else {
+				$('#discussion-text').html(discussion2000)
+			}
 		}
 
 	</script>
