@@ -61,7 +61,7 @@
       border: 1px solid #dddddd;
       height: 700px;
       margin-bottom: 2rem;
-			background-color: #dddddd;
+			background-color: #eeeeee;
 			position: relative;
 		}
 		#inset-map {
@@ -70,7 +70,7 @@
 			height: 220px;
 			left: 18px;
 			bottom: 18px;
-			background-color: #dddddd;
+			background-color: #eeeeee;
 			border: 2px solid #ffffff;
 		}
 		#ui-slider{
@@ -123,6 +123,32 @@
 		label p {
 			float: right;
 		}
+		.citation {
+			position: relative;
+			display: inline-block;
+			border-bottom: 1px dotted black;
+		}
+		.citation .citation-tooltip {
+			visibility: hidden;
+			width: 200px;
+			background-color: #555555;
+			color: white;
+			/* text-align: center; */
+			padding: 5px;
+			border-radius: 6px;
+			position: absolute;
+			z-index: 1;
+			top: 100%;
+			left: 50%;
+			margin-left: -30px;
+			font-size: 1em;
+		}
+		.citation:hover .citation-tooltip {
+			visibility: visible;
+		}
+		a {
+			color: #0078A8;
+		}
 	</style>
 </head>
 
@@ -134,9 +160,21 @@
 		<!--h2 class="mt3"></h2-->
 	</div>
 	<div id="descriptive-text">
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis dolor enim. Morbi posuere orci et erat feugiat faucibus quis a nunc. Morbi pharetra odio et tellus ultrices, vitae gravida arcu mattis. Vestibulum vitae purus iaculis, pellentesque nisl vitae, tincidunt diam. Vivamus at velit purus. Mauris pretium sapien risus, blandit sollicitudin orci faucibus a. Nullam convallis hendrerit bibendum. Pellentesque ex erat, vulputate ut placerat in, vehicula at diam. Sed nec ex sed tellus placerat bibendum. Morbi sollicitudin dolor vel feugiat viverra. Praesent cursus justo ac lacus condimentum, viverra mattis erat congue. Maecenas venenatis mi sit amet elit vestibulum scelerisque. Maecenas consectetur nibh et libero pulvinar maximus. Duis sed ultrices ipsum. Suspendisse maximus vitae odio eu fermentum. Integer mattis sit amet nisl ac lobortis.</p>
-		<p>Sed blandit gravida commodo. Ut sem orci, semper iaculis dictum et, fermentum in odio. Aliquam at varius elit, non auctor tortor. Vivamus eget diam lacus. Fusce euismod non magna non pulvinar. In nisl turpis, porta a tempus nec, rutrum a orci. Nam libero nisi, dapibus in ex et, venenatis viverra risus. Ut at nunc lectus. In at dolor magna. Sed sollicitudin, enim eget tempor ultrices, tellus odio scelerisque erat, a pretium arcu mi at tortor. Morbi commodo diam eu tempus cursus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque id ex eros. Etiam nec mattis mauris.</p>
-		<p>Integer sed augue lacus. Vestibulum eu interdum nulla. Quisque et lacus mauris. Donec aliquam hendrerit tincidunt. Nam et lectus leo. Aliquam odio lacus, tristique eget imperdiet vel, vulputate ut lectus. Integer leo diam, aliquet non arcu ac, euismod aliquam nunc. Sed vitae quam convallis ligula pretium fermentum. Phasellus at sapien fringilla, ultrices elit gravida, tempor leo. Morbi sed ligula nec ligula venenatis scelerisque. Praesent varius velit urna, et vehicula turpis luctus at. Phasellus non est sit amet mi gravida tincidunt. Mauris eu lorem ut ipsum cursus aliquam.</p>
+		<h4 class="txt-h4"><strong>A cartogram series by Jake Coolidge</strong></h4>
+		<p><em>What is a cartogram?</em></p>
+		<p>A cartogram is a thematic map that is "drawn so that the areas of internal enumeration units are proportional to the data they represent".<sup class="txt-sup"><a href="#citation-1">1</a></sup></p>
+		<p>This cartogram series uses the county as the enumeration unit, and resizes them relative to other counties to show population patterns across the state of California. At a glance it should be clear that population is not evenly distributed across the state. Perhaps more striking is the temporal dimension to California's population growth. Select from six years, spaced 20 years apart, to view the state's growth over the twentieth century.</p>
+		<p>Population data was acquired from the US Census Bureau.<sup class="txt-sup" a href="citation-7"><a href="#citation-7">7</a></sup> Check out the <a href="">readme on GitHub</a> to learn more about how the cartogram artwork was created.</p>
+		<h4 class="txt-h4">Works cited and further reading</h4>
+		<ol class="txt-ol">
+			<li id="citation-1" class="txt-li">Dent, Borden D. (1996). <em>Cartography: Thematic Map Design.</em> p. 203. 4th Ed. Dubuque, Iowa: Wm. C. Brown Publishers.</li>
+			<li id="citation-2" class="txt-li">California Legislative Analyst's Office. (2000). "2000 Cal Facts. California's Economy Part 1". <a href="http://www.lao.ca.gov/2000/calfacts/2000_calfacts_economy_part1.html">link.</a> Accessed 16 March 2018.</li>
+			<li id="citation-3" class="txt-li"> Walker, Richard A. (2007). <em>The Country in the City: The Greening of the San Francisco Bay Area.</em> Seattle, Washington: University of Washington Press.</li>
+			<li id="citation-4" class="txt-li">Johnson, Hans. (2017). "California's Population". Public Policy Institute of California. <a href="http://www.ppic.org/publication/californias-population/">link.</a> Accessed 16 March 2018.</li>
+			<li id="citation-5" class="txt-li">Johnson, Marilynn S. (1993). <em>The Second Gold Rush: Oakland and the East Bay in World War II.</em> Berkeley, California: University of California Press.</li>
+			<li id="citation-6" class="txt-li">Olmstead, Alan L. and Paul W. Rhode. "A History of California Agriculture". Giannini Foundation Information Series 017-1, University of California Agriculture and Natural Resources. <a href="https://s.giannini.ucop.edu/uploads/giannini_public/19/41/194166a6-cfde-4013-ae55-3e8df86d44d0/a_history_of_california_agriculture.pdf">link.</a> Accessed 16 March 2018.</li>
+			<li id="citation-7" class="txt-li">Forstall, Richard L., Population Division, US Bureau of the Census. (1995). "California: Population of Counties by Decennial Census: 1900 to 1990". <a href="https://www.census.gov/population/cencounts/ca190090.txt">link.</a> Accessed 16 March 2018.</li>
+		</ol>
 	</div>
 	<div id="map">
 		<div id="discussion-text">
@@ -216,10 +254,6 @@
 			<input type="range" min="1900" max="2000" value="1900" step="100" class="decade-slider"/></input>
 		</label>
 	</div> -->
-
-  <p>experimental draft by Jake Coolidge</p>
-  <p>data source: US Census</p>
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
 	<script async defer src="https://api.mapbox.com/mapbox-assembly/v0.21.0/assembly.js"></script>
@@ -230,13 +264,13 @@
 			'<h1>1900</h1>' +
 			'<h3>total population: <br />1,485,053</h3>' +
 			'<h3>72% increase since 1880</h3>' +
-			"<p>Having been made a state fifty years earlier, California entered the century with a population comparable to the city of San Diego's current population. At this time, nearly 1 in every 4 Californians lived in the city and county of San Francisco. Overland transportation routes were about augment the sea lanes to open California up to the the US and the world, igniting a century-long population boom. Note that Imperial County was still a part of San Diego County at this time (it was split off from San Diego and made into its own county in 1907).</p>"
+			"<p>Having been made a state fifty years earlier, California entered the century with a population comparable to the city of San Diego's current population. At this time, nearly 1 in every 4 Californians lived in the city and county of San Francisco. New highways were about augment the railroads and sea lanes to open California up to the the US and the world, igniting a century-long population boom. Note that Imperial County was still a part of San Diego County at this time (it was split off from San Diego and made into its own county in 1907).</p>"
 
 		var discussion1920 =
 			'<h1>1920</h1>' +
 			'<h3>total population: <br />3,426,861</h3>' +
 			'<h3>131% increase since 1900</h3>' +
-			"<p>Los Angeles grows quickly in the first twenty years of the century to overtake San Francisco's population, aided in part by the completion of the first Los Angeles Aqueduct in 1908. Alameda County begins to absorb many new Bay Area residents&mdash;including some San Francisco residents displaced by the 1906 earthquake. Rapid industrialization, including a burgeoning food-processing sector and shipbuilding efforts to support the First World War, draw migrants from all over the world to California's urban centers.</p>"
+			"<p>Los Angeles grows quickly in the first twenty years of the century to overtake San Francisco's population, aided in part by the completion of the first Los Angeles Aqueduct in 1908. Alameda County begins to absorb many new Bay Area residents&mdash;including some San Francisco residents displaced by the 1906 earthquake.<sup class='txt-sup'><a href='#citation-5'>5</a></sup> Rapid industrialization, including a burgeoning food-processing sector<sup class='txt-sup'><a href='#citation-6'>6</a></sup> and shipbuilding efforts to support the First World War, draw migrants from all over the world to California's urban centers.</p>"
 
 		var discussion1940 =
 			'<h1>1940</h1>' +
@@ -248,19 +282,19 @@
 			'<h1>1960</h1>' +
 			'<h3>total population: 15,717,204</h3>' +
 			'<h3>128% increase since 1940</h3>' +
-			'<p>The post-war boom is perhaps the most significant of all. California emerges from the Second World War as a center for the aerospace industry, adding to its predominance in intensive agricultural production, media, manufacturing, and petroleum refining. The emergence of aerospace fosters hotbeds for technological innovation.</p>'
+			"<p>The post-war boom is perhaps the most significant of all, as the state's population triples in the latter half of the century.<sup class='txt-sup'><a href='#citation-4'>4</a></sup> California emerges from the Second World War as a center for the aerospace industry, adding to its predominance in intensive agricultural production, media, manufacturing, and petroleum refining. The emergence of aerospace fosters hotbeds for technological innovation.</p>"
 
 		var discussion1980 =
 			'<h1>1980</h1>' +
 			'<h3>total population: 23,667,902</h3>' +
 			'<h3>51% increase since 1960</h3>' +
-			"<p>During this period, California continues to grow faster than the nation, though more slowly than in past decades. Intensive economic development takes a serious toll on the environment, leading many residents to begin efforts to reduce intolerable smog in Southern California and clean a heavily polluted San Francisco Bay. Additional suburban counties like San Bernardino and Ventura in the south and Contra Costa in the north see considerable gains during this time.</p>"
+			"<p>During this period, California continues to grow faster than the nation, though more slowly than in past decades. Intensive economic development takes a serious toll on the environment, leading many residents to begin efforts to reduce intolerable smog in Southern California and clean a heavily polluted San Francisco Bay.<sup class='txt-sup'><a href='#citation-3'>3</a></sup> Additional suburban counties like San Bernardino and Ventura in the south and Contra Costa in the north see considerable gains during this time.</p>"
 
 		var discussion2000 =
 			'<h1>2000</h1>' +
 			'<h3>total population: 33,871,648</h3>' +
 			'<h3>43% increase since 1980</h3>' +
-			"<p>California closed out the century with a population larger than Canada and the world's sixth-largest economy. And yet, to this day there are counties in the state with fewer than 10,000 persons and population densities of less than 4 persons per square mile. Clearly, this cartogram tells a story of population enumerated at the county level, but barely hints at the geographic diversity of the state's land forms. Select other years to see this story of population growth unfold over the twentieth century.</p>"
+			"<p>California closed out the century with a population larger than Canada and the world's sixth-largest economy.<sup class='txt-sup'><a href='#citation-2'>2</a></sup> And yet, to this day there are counties in the state with fewer than 10,000 persons and population densities of less than 4 persons per square mile. Clearly, this cartogram tells a story of population enumerated at the county level, but barely hints at the geographic diversity of the state's land forms. Select other years to see this story of population growth unfold over the twentieth century.</p>"
 
 		$('#discussion-text').html(discussion2000)
 
@@ -272,7 +306,8 @@
 			center: [38.3896, -120.5889],
 			zoom: 5,
 			minZoom: 5,
-			maxZoom: 7
+			maxZoom: 7,
+			attribution: ('US Census')
 
 		}
 
@@ -309,6 +344,8 @@
 		})
 
 		map.addControl(L.control.zoom({position: 'topright'}));
+
+		L.control.attribution('Data: US Census Bureau')
 
 		// deferred requests for data
 		var data2000 = $.getJSON("data/ca_cartogram_2000.json"),
