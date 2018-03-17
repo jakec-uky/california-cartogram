@@ -44,11 +44,11 @@
 			overflow: scroll;
 		}
 		#discussion-text {
-			position: absolute;
+			/* position: absolute;
 			top: 10px;
-			right: 50px;
-			background-color: white;
-			max-width: 200px;
+			right: 50px; */
+			background-color: rgba(200,200,200,0.1);
+			/* max-width: 200px; */
 			padding: 10px;
 		}
 		#discussion-text h1 {
@@ -62,6 +62,10 @@
       height: 700px;
       margin-bottom: 2rem;
 			background-color: #eeeeee;
+			background-image: url(img/background-map.jpg);
+			background-position: right 50% bottom 50%;
+			background-size: 640px 864px;
+			background-repeat: no-repeat;
 			position: relative;
 		}
 		#inset-map {
@@ -112,9 +116,9 @@
 			left: 250px;
 			padding: 10px;
 		}
-		#year-selector hr {
+		hr {
 			border: 0;
-			height: 10px;
+			height: 2px;
 			background: #333;
 			background-image: linear-gradient(to right, #ccc, #333, #ccc);
 			/* position: inherit; */
@@ -149,22 +153,116 @@
 		a {
 			color: #0078A8;
 		}
+
+		h1 span {
+			font-size: 0.75em;
+		}
+		#container {
+			max-width: 960px;
+			margin: 0 auto;
+		}
 	</style>
 </head>
 
 <body>
+	<div id="container" class="flex-parent viewport-full relative scroll-hidden">
+		<div class="flex-child w-full w300-ml absolute static-ml left bottom">
+			<div class="flex-parent flex-parent--column viewport-third h-full-ml hmax-full bg-white py18 px12">
+				<div class="flex-child flex-child--grow px12 py12 scroll-auto">
 
+					<h1 class="txt-h1" style="line-height: 1em;">A Century of Growth</h1>
 
-	<div id="title-element">
-		<p><strong>A Century of Growth: <span>population in California, 1900&ndash;2000</span></strong></p>
-		<!--h2 class="mt3"></h2-->
+					<h4 class="txt-h4">California population, 1900&ndash;2000</h4>
+
+					<hr />
+
+					<div id="discussion-text"></div>
+
+					<p><em>What is a cartogram?</em></p>
+
+					<p>A cartogram is a thematic map that is "drawn so that the areas of internal enumeration units are proportional to the data they represent".<sup class="txt-sup"><a href="#citation-1">1</a></sup></p>
+
+					<p>This cartogram series uses the county as the enumeration unit, and resizes them relative to other counties to show population patterns across the state of California. At a glance it should be clear that population is not evenly distributed across the state. Perhaps more striking is the temporal dimension to California's population growth. Select from six years, spaced 20 years apart, to view the state's growth over the twentieth century. A discussion to accompany each selection will appear at the <a href="#discussion-text">top of this column.</a> The sizing of the county polygons remains consistent across throughout the visualization, for example allowing the magnitude of San Francisco's population in 1900 to be compared to the Sacramento's 1980 population.</p>
+
+					<p>This is a semi-contiguous cartogram. Due to the fact that some counties with large land areas have very small populations, some small counties have large populations, and a wide range in between, some shearing is inevitable as the counties are resized according to population.</p>
+
+					<p>This is how the counties appear when mapped normally (Albers projection):</p>
+
+					<img src="img/california-counties-labeled-north.jpg" alt="map of California counties northern section" />
+
+					<img src="img/california-counties-labeled-south.jpg" alt="map of California counties southern section" style="margin-top: 6px;" />
+
+					<p>Population data was acquired from the US Census Bureau.<sup class="txt-sup" a href="citation-7"><a href="#citation-7">7</a></sup> Check out the <a href="https://github.com/jakec-uky/california-cartogram/blob/master/README.md">readme on GitHub</a> to learn more about how the cartogram artwork was created.</p>
+					<p>This work marks the ten-year anniversary of one of my earliest grad-school projects, reimagining and redesigning it along the way. See the original work <a href="https://jakecoolidge.wordpress.com/2009/08/14/population-cartogram-of-california-a-century-of-growth/">here.</a></p>
+					<h4 class="txt-h4">Works cited and further reading</h4>
+					<ol class="txt-ol">
+						<li id="citation-1" class="txt-li">Dent, Borden D. (1996). <em>Cartography: Thematic Map Design.</em> p. 203. 4th Ed. Dubuque, Iowa: Wm. C. Brown Publishers.</li>
+						<li id="citation-2" class="txt-li">California Legislative Analyst's Office. (2000). "2000 Cal Facts. California's Economy Part 1". <a href="http://www.lao.ca.gov/2000/calfacts/2000_calfacts_economy_part1.html">link.</a> Accessed 16 March 2018.</li>
+						<li id="citation-3" class="txt-li"> Walker, Richard A. (2007). <em>The Country in the City: The Greening of the San Francisco Bay Area.</em> Seattle, Washington: University of Washington Press.</li>
+						<li id="citation-4" class="txt-li">Johnson, Hans. (2017). "California's Population". Public Policy Institute of California. <a href="http://www.ppic.org/publication/californias-population/">link.</a> Accessed 16 March 2018.</li>
+						<li id="citation-5" class="txt-li">Johnson, Marilynn S. (1993). <em>The Second Gold Rush: Oakland and the East Bay in World War II.</em> Berkeley, California: University of California Press.</li>
+						<li id="citation-6" class="txt-li">Olmstead, Alan L. and Paul W. Rhode. "A History of California Agriculture". Giannini Foundation Information Series 017-1, University of California Agriculture and Natural Resources. <a href="https://s.giannini.ucop.edu/uploads/giannini_public/19/41/194166a6-cfde-4013-ae55-3e8df86d44d0/a_history_of_california_agriculture.pdf">link.</a> Accessed 16 March 2018.</li>
+						<li id="citation-7" class="txt-li">Forstall, Richard L., Population Division, US Bureau of the Census. (1995). "California: Population of Counties by Decennial Census: 1900 to 1990". <a href="https://www.census.gov/population/cencounts/ca190090.txt">link.</a> Accessed 16 March 2018.</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<div class="flex-child flex-child--grow viewport-twothirds viewport-full-ml">
+			<div id="map" class='viewport-twothirds viewport-full-ml'>
+				<div id="inset-map">
+					<p><strong>Number of persons</strong></p>
+				</div>
+				<form id="year-selector">
+					<p>
+						<strong>select a year</strong>
+					</p>
+					<!--hr /-->
+					<label class="radio-container">
+						<input name="radio-basic" type="radio" value="1900"/>
+						<div class="radio ml6 mr6"></div>
+						1900
+					</label>
+					<label class="radio-container">
+						<input name="radio-basic" type="radio" value="1920"/>
+						<div class="radio ml6 mr6"></div>
+						1920
+					</label>
+					<label class="radio-container">
+						<input name="radio-basic" type="radio" value="1940"/>
+						<div class="radio ml6 mr6"></div>
+						1940
+					</label>
+					<label class="radio-container">
+						<input name="radio-basic" type="radio" value="1960"/>
+						<div class="radio ml6 mr6"></div>
+						1960
+					</label>
+					<label class="radio-container">
+						<input name="radio-basic" type="radio" value="1980"/>
+						<div class="radio ml6 mr6"></div>
+						1980
+					</label>
+					<label class="radio-container">
+						<input name="radio-basic" type="radio" value="2000" checked/>
+						<div class="radio ml6 mr6"></div>
+						2000
+					</label>
+				</form>
+			</div>
+		</div>
 	</div>
-	<div id="descriptive-text">
+
+	<!--div id="descriptive-text">
+		<div id="title-element">
+			<p><strong>A Century of Growth: <span>California population in the twentieth century</span></strong></p>
+		</div>
 		<h4 class="txt-h4"><strong>A cartogram series by Jake Coolidge</strong></h4>
+		<div id="discussion-text">
+		</div>
 		<p><em>What is a cartogram?</em></p>
 		<p>A cartogram is a thematic map that is "drawn so that the areas of internal enumeration units are proportional to the data they represent".<sup class="txt-sup"><a href="#citation-1">1</a></sup></p>
 		<p>This cartogram series uses the county as the enumeration unit, and resizes them relative to other counties to show population patterns across the state of California. At a glance it should be clear that population is not evenly distributed across the state. Perhaps more striking is the temporal dimension to California's population growth. Select from six years, spaced 20 years apart, to view the state's growth over the twentieth century. The sizing of the county polygons remains consistent across throughout the visualization, for example allowing the magnitude of San Francisco's population to be compared to the Sacramento's 1980 population.</p>
-		<p>Population data was acquired from the US Census Bureau.<sup class="txt-sup" a href="citation-7"><a href="#citation-7">7</a></sup> Check out the <a href="">readme on GitHub</a> to learn more about how the cartogram artwork was created.</p>
+		<p>Population data was acquired from the US Census Bureau.<sup class="txt-sup" a href="citation-7"><a href="#citation-7">7</a></sup> Check out the <a href="https://github.com/jakec-uky/california-cartogram/blob/master/README.md">readme on GitHub</a> to learn more about how the cartogram artwork was created.</p>
 		<p>This work marks the ten-year anniversary of one of my earliest grad-school projects, reimagining and redesigning it along the way. See the original work <a href="https://jakecoolidge.wordpress.com/2009/08/14/population-cartogram-of-california-a-century-of-growth/">here.</a></p>
 		<h4 class="txt-h4">Works cited and further reading</h4>
 		<ol class="txt-ol">
@@ -178,8 +276,6 @@
 		</ol>
 	</div>
 	<div id="map">
-		<div id="discussion-text">
-		</div>
 		<div id="inset-map">
 			<p><strong>Number of persons</strong></p>
 		</div>
@@ -187,7 +283,6 @@
 			<p>
 				<strong>select a year</strong>
 			</p>
-			<!--hr /-->
 			<label class="radio-container">
 				<input name="radio-basic" type="radio" value="1900"/>
 				<div class="radio ml6 mr6"></div>
@@ -219,35 +314,7 @@
 				2000
 			</label>
 		</form>
-		<!--form id="year-selector">
-				<p>choose a year</p>
-				<div>
-					<input type="radio"
-					 name="contact" value="1900">
-					<label for="contactChoice1">1900</label>
-
-					<input type="radio"
-					 name="contact" value="1920">
-					<label for="contactChoice1">1920</label>
-
-					<input type="radio"
-					 name="contact" value="1940">
-					<label for="contactChoice2">1940</label>
-
-					<input type="radio"
-					 name="contact" value="1960">
-					<label for="contactChoice1">1960</label>
-
-					<input type="radio"
-					 name="contact" value="1980">
-					<label for="contactChoice1">1980</label>
-
-					<input type="radio"
-					 name="contact" value="2000" checked>
-					<label for="contactChoice3">2000</label>
-				</div>
-			</form-->
-	</div>
+	</div-->
 	<!-- <div id="ui-slider">
 		<label>
 			<span class="min">1900</span>
@@ -262,40 +329,40 @@
 	<script>
 
 		var discussion1900 =
-			'<h1>1900</h1>' +
+			"<h2 class='txt-h2'>1900</h2>" +
 			'<h3>total population: <br />1,485,053</h3>' +
 			'<h3>72% increase since 1880</h3>' +
 			"<p>Having been made a state fifty years earlier, California entered the century with a population comparable to the city of San Diego's current population. At this time, nearly 1 in every 4 Californians lived in the city and county of San Francisco. New highways were about augment the railroads and sea lanes to open California up to the the US and the world, igniting a century-long population boom. Note that Imperial County was still a part of San Diego County at this time (it was split off from San Diego and made into its own county in 1907).</p>"
 
 		var discussion1920 =
-			'<h1>1920</h1>' +
+			"<h2 class='txt-h2'>1920</h2>" +
 			'<h3>total population: <br />3,426,861</h3>' +
 			'<h3>131% increase since 1900</h3>' +
 			"<p>Los Angeles grows quickly in the first twenty years of the century to overtake San Francisco's population, aided in part by the completion of the first Los Angeles Aqueduct in 1908. Alameda County begins to absorb many new Bay Area residents&mdash;including some San Francisco residents displaced by the 1906 earthquake.<sup class='txt-sup'><a href='#citation-5'>5</a></sup> Rapid industrialization, including a burgeoning food-processing sector<sup class='txt-sup'><a href='#citation-6'>6</a></sup> and shipbuilding efforts to support the First World War, draw migrants from all over the world to California's urban centers.</p>"
 
 		var discussion1940 =
-			'<h1>1940</h1>' +
+			"<h2 class='txt-h2'>1940</h2>" +
 			'<h3>total population: 6,907,387</h3>' +
 			'<h3>102% increase since 1920</h3>' +
 			'<p>The diversifying industrial base of Los Angeles, including the emergence of the film industry, leads to extraordinary growth. Public works like the Golden Gate and San Francisco-Oakland Bay Bridges are completed from 1920 to 1940 to accommodate the influx of residents. San Francisco, Alameda, and Sacramento counties also see gains, but many suburban counties, like Orange in the south and Santa Clara in the Bay Area, see only modest gains up to this point.</p>'
 
 		var discussion1960 =
-			'<h1>1960</h1>' +
+			"<h2 class='txt-h2'>1960</h2>" +
 			'<h3>total population: 15,717,204</h3>' +
 			'<h3>128% increase since 1940</h3>' +
 			"<p>The post-war boom is perhaps the most significant of all, as the state's population triples in the latter half of the century.<sup class='txt-sup'><a href='#citation-4'>4</a></sup> California emerges from the Second World War as a center for the aerospace industry, adding to its predominance in intensive agricultural production, media, manufacturing, and petroleum refining. The emergence of aerospace fosters hotbeds for technological innovation.</p>"
 
 		var discussion1980 =
-			'<h1>1980</h1>' +
+			"<h2 class='txt-h2'>1980</h2>" +
 			'<h3>total population: 23,667,902</h3>' +
 			'<h3>51% increase since 1960</h3>' +
 			"<p>During this period, California continues to grow faster than the nation, though more slowly than in past decades. Intensive economic development takes a serious toll on the environment, leading many residents to begin efforts to reduce intolerable smog in Southern California and clean a heavily polluted San Francisco Bay.<sup class='txt-sup'><a href='#citation-3'>3</a></sup> Additional suburban counties like San Bernardino and Ventura in the south and Contra Costa in the north see considerable gains during this time.</p>"
 
 		var discussion2000 =
-			'<h1>2000</h1>' +
+			"<h2 class='txt-h2'>2000</h2>" +
 			'<h3>total population: 33,871,648</h3>' +
 			'<h3>43% increase since 1980</h3>' +
-			"<p>California closed out the century with a population larger than Canada and the world's sixth-largest economy.<sup class='txt-sup'><a href='#citation-2'>2</a></sup> And yet, to this day there are counties in the state with fewer than 10,000 persons and population densities of less than 4 persons per square mile. Clearly, this cartogram tells a story of population enumerated at the county level, but barely hints at the geographic diversity of the state's land forms. Select other years to see this story of population growth unfold over the twentieth century.</p>"
+			"<p>California closed out the century with a population larger than Canada and the world's sixth-largest economy.<sup class='txt-sup'><a href='#citation-2'>2</a></sup> And yet, to this day there are counties in the state with fewer than 10,000 persons and population densities of less than 4 persons per square mile. This cartogram tells a story of population enumerated at the county level, but barely hints at the geographic diversity of the state's land forms. Select other years to see this story of population growth unfold over the twentieth century.</p>"
 
 		$('#discussion-text').html(discussion2000)
 
