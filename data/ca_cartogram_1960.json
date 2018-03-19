@@ -1448,9 +1448,9 @@
         "pop1960": 249989,
         "sq1960": 25,
         "area_sqmi": 1399.28,
-        "color": "light green",
-        "colorgroup": "f",
-        "hex": "#beeb9f",
+        "color": "pale yellow",
+        "colorgroup": "c",
+        "hex": "#ffff9d",
         "population": 249989,
         "year": 1960
       },

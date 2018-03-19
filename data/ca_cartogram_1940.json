@@ -2474,9 +2474,9 @@
         "pop1940": 134207,
         "sq1940": 13,
         "area_sqmi": 1399.28,
-        "color": "light green",
-        "colorgroup": "f",
-        "hex": "#beeb9f",
+        "color": "pale yellow",
+        "colorgroup": "c",
+        "hex": "#ffff9d",
         "population": 134207,
         "year": 1940
       },

@@ -1682,9 +1682,9 @@
         "pop2000": 563598,
         "sq2000": 56,
         "area_sqmi": 1399.28,
-        "color": "light green",
-        "colorgroup": "f",
-        "hex": "#beeb9f",
+        "color": "pale yellow",
+        "colorgroup": "c",
+        "hex": "#ffff9d",
         "population": 563598,
         "year": 2000
       },

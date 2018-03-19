@@ -1292,9 +1292,9 @@
         "pop1900": 35452,
         "sq1900": 4,
         "area_sqmi": 1399.28,
-        "color": "light green",
-        "colorgroup": "f",
-        "hex": "#beeb9f",
+        "color": "pale yellow",
+        "colorgroup": "c",
+        "hex": "#ffff9d",
         "population": 35452,
         "year": 1900
       },
