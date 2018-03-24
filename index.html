@@ -110,7 +110,7 @@
 		#year-selector {
 			position: absolute;
 			z-index: 1000;
-			background-color: rgba(256,256,256,0.2);
+			background-color: rgba(256,256,256,0.5);
 			/* background-image: url(img/test.JPG); */
 			bottom: 18px;
 			left: 250px;
@@ -161,6 +161,11 @@
 			max-width: 960px;
 			margin: 0 auto;
 		}
+		svg {
+			position: absolute;
+			bottom: 400px;
+			left: 18px;
+		}
 	</style>
 </head>
 
@@ -198,19 +203,23 @@
 					<p>This work marks the ten-year anniversary of one of my earliest grad-school projects, reimagining and redesigning it along the way. See the original work <a href="https://jakecoolidge.wordpress.com/2009/08/14/population-cartogram-of-california-a-century-of-growth/">here.</a></p>
 					<h4 class="txt-h4">Works cited and further reading</h4>
 					<ol class="txt-ol">
-						<li id="citation-1" class="txt-li">Dent, Borden D. (1996). <em>Cartography: Thematic Map Design.</em> p. 203. 4th Ed. Dubuque, Iowa: Wm. C. Brown Publishers.</li>
-						<li id="citation-2" class="txt-li">California Legislative Analyst's Office. (2000). "2000 Cal Facts. California's Economy Part 1". <a href="http://www.lao.ca.gov/2000/calfacts/2000_calfacts_economy_part1.html">link.</a> Accessed 16 March 2018.</li>
-						<li id="citation-3" class="txt-li"> Walker, Richard A. (2007). <em>The Country in the City: The Greening of the San Francisco Bay Area.</em> Seattle, Washington: University of Washington Press.</li>
-						<li id="citation-4" class="txt-li">Johnson, Hans. (2017). "California's Population". Public Policy Institute of California. <a href="http://www.ppic.org/publication/californias-population/">link.</a> Accessed 16 March 2018.</li>
-						<li id="citation-5" class="txt-li">Johnson, Marilynn S. (1993). <em>The Second Gold Rush: Oakland and the East Bay in World War II.</em> Berkeley, California: University of California Press.</li>
-						<li id="citation-6" class="txt-li">Olmstead, Alan L. and Paul W. Rhode. "A History of California Agriculture". Giannini Foundation Information Series 017-1, University of California Agriculture and Natural Resources. <a href="https://s.giannini.ucop.edu/uploads/giannini_public/19/41/194166a6-cfde-4013-ae55-3e8df86d44d0/a_history_of_california_agriculture.pdf">link.</a> Accessed 16 March 2018.</li>
-						<li id="citation-7" class="txt-li">Forstall, Richard L., Population Division, US Bureau of the Census. (1995). "California: Population of Counties by Decennial Census: 1900 to 1990". <a href="https://www.census.gov/population/cencounts/ca190090.txt">link.</a> Accessed 16 March 2018.</li>
+						<li id="citation-1" class="txt-li txt-s">Dent, Borden D. (1996). <em>Cartography: Thematic Map Design.</em> p. 203. 4th Ed. Dubuque, Iowa: Wm. C. Brown Publishers.</li>
+						<li id="citation-2" class="txt-li txt-s">California Legislative Analyst's Office. (2000). "2000 Cal Facts. California's Economy Part 1". <a href="http://www.lao.ca.gov/2000/calfacts/2000_calfacts_economy_part1.html">link.</a> Accessed 16 March 2018.</li>
+						<li id="citation-3" class="txt-li txt-s"> Walker, Richard A. (2007). <em>The Country in the City: The Greening of the San Francisco Bay Area.</em> Seattle, Washington: University of Washington Press.</li>
+						<li id="citation-4" class="txt-li txt-s">Johnson, Hans. (2017). "California's Population". Public Policy Institute of California. <a href="http://www.ppic.org/publication/californias-population/">link.</a> Accessed 16 March 2018.</li>
+						<li id="citation-5" class="txt-li txt-s">Johnson, Marilynn S. (1993). <em>The Second Gold Rush: Oakland and the East Bay in World War II.</em> Berkeley, California: University of California Press.</li>
+						<li id="citation-6" class="txt-li txt-s">Olmstead, Alan L. and Paul W. Rhode. "A History of California Agriculture". Giannini Foundation Information Series 017-1, University of California Agriculture and Natural Resources. <a href="https://s.giannini.ucop.edu/uploads/giannini_public/19/41/194166a6-cfde-4013-ae55-3e8df86d44d0/a_history_of_california_agriculture.pdf">link.</a> Accessed 16 March 2018.</li>
+						<li id="citation-7" class="txt-li txt-s">Forstall, Richard L., Population Division, US Bureau of the Census. (1995). "California: Population of Counties by Decennial Census: 1900 to 1990". <a href="https://www.census.gov/population/cencounts/ca190090.txt">link.</a> Accessed 16 March 2018.</li>
 					</ol>
 				</div>
 			</div>
 		</div>
 		<div class="flex-child flex-child--grow viewport-twothirds viewport-full-ml">
 			<div id="map" class='viewport-twothirds viewport-full-ml'>
+				<svg id="svg1" xmlns="http://www.w3.org/2000/svg" style="width: 40px; height: 40px">
+					<circle id="circle1" r="18" cx="20" cy="20" style="fill: red; stroke: blue; stroke-width: 2"></circle>
+				</svg>
+				<!--button onclick="circle1.style.fill='yellow';">Click to change to yellow.</button-->
 				<div id="inset-map">
 					<p><strong>Number of persons</strong></p>
 				</div>
@@ -218,7 +227,6 @@
 					<p>
 						<strong>select a year</strong>
 					</p>
-					<!--hr /-->
 					<label class="radio-container">
 						<input name="radio-basic" type="radio" value="1900"/>
 						<div class="radio ml6 mr6"></div>
@@ -254,76 +262,7 @@
 		</div>
 	</div>
 
-	<!--div id="descriptive-text">
-		<div id="title-element">
-			<p><strong>A Century of Growth: <span>California population in the twentieth century</span></strong></p>
-		</div>
-		<h4 class="txt-h4"><strong>A cartogram series by Jake Coolidge</strong></h4>
-		<div id="discussion-text">
-		</div>
-		<p><em>What is a cartogram?</em></p>
-		<p>A cartogram is a thematic map that is "drawn so that the areas of internal enumeration units are proportional to the data they represent".<sup class="txt-sup"><a href="#citation-1">1</a></sup></p>
-		<p>This cartogram series uses the county as the enumeration unit, and resizes them relative to other counties to show population patterns across the state of California. At a glance it should be clear that population is not evenly distributed across the state. Perhaps more striking is the temporal dimension to California's population growth. Select from six years, spaced 20 years apart, to view the state's growth over the twentieth century. The sizing of the county polygons remains consistent across throughout the visualization, for example allowing the magnitude of San Francisco's population to be compared to the Sacramento's 1980 population.</p>
-		<p>Population data was acquired from the US Census Bureau.<sup class="txt-sup" a href="citation-7"><a href="#citation-7">7</a></sup> Check out the <a href="https://github.com/jakec-uky/california-cartogram/blob/master/README.md">readme on GitHub</a> to learn more about how the cartogram artwork was created.</p>
-		<p>This work marks the ten-year anniversary of one of my earliest grad-school projects, reimagining and redesigning it along the way. See the original work <a href="https://jakecoolidge.wordpress.com/2009/08/14/population-cartogram-of-california-a-century-of-growth/">here.</a></p>
-		<h4 class="txt-h4">Works cited and further reading</h4>
-		<ol class="txt-ol">
-			<li id="citation-1" class="txt-li">Dent, Borden D. (1996). <em>Cartography: Thematic Map Design.</em> p. 203. 4th Ed. Dubuque, Iowa: Wm. C. Brown Publishers.</li>
-			<li id="citation-2" class="txt-li">California Legislative Analyst's Office. (2000). "2000 Cal Facts. California's Economy Part 1". <a href="http://www.lao.ca.gov/2000/calfacts/2000_calfacts_economy_part1.html">link.</a> Accessed 16 March 2018.</li>
-			<li id="citation-3" class="txt-li"> Walker, Richard A. (2007). <em>The Country in the City: The Greening of the San Francisco Bay Area.</em> Seattle, Washington: University of Washington Press.</li>
-			<li id="citation-4" class="txt-li">Johnson, Hans. (2017). "California's Population". Public Policy Institute of California. <a href="http://www.ppic.org/publication/californias-population/">link.</a> Accessed 16 March 2018.</li>
-			<li id="citation-5" class="txt-li">Johnson, Marilynn S. (1993). <em>The Second Gold Rush: Oakland and the East Bay in World War II.</em> Berkeley, California: University of California Press.</li>
-			<li id="citation-6" class="txt-li">Olmstead, Alan L. and Paul W. Rhode. "A History of California Agriculture". Giannini Foundation Information Series 017-1, University of California Agriculture and Natural Resources. <a href="https://s.giannini.ucop.edu/uploads/giannini_public/19/41/194166a6-cfde-4013-ae55-3e8df86d44d0/a_history_of_california_agriculture.pdf">link.</a> Accessed 16 March 2018.</li>
-			<li id="citation-7" class="txt-li">Forstall, Richard L., Population Division, US Bureau of the Census. (1995). "California: Population of Counties by Decennial Census: 1900 to 1990". <a href="https://www.census.gov/population/cencounts/ca190090.txt">link.</a> Accessed 16 March 2018.</li>
-		</ol>
-	</div>
-	<div id="map">
-		<div id="inset-map">
-			<p><strong>Number of persons</strong></p>
-		</div>
-		<form id="year-selector">
-			<p>
-				<strong>select a year</strong>
-			</p>
-			<label class="radio-container">
-				<input name="radio-basic" type="radio" value="1900"/>
-				<div class="radio ml6 mr6"></div>
-				1900
-			</label>
-			<label class="radio-container">
-				<input name="radio-basic" type="radio" value="1920"/>
-				<div class="radio ml6 mr6"></div>
-				1920
-			</label>
-			<label class="radio-container">
-				<input name="radio-basic" type="radio" value="1940"/>
-				<div class="radio ml6 mr6"></div>
-				1940
-			</label>
-			<label class="radio-container">
-				<input name="radio-basic" type="radio" value="1960"/>
-				<div class="radio ml6 mr6"></div>
-				1960
-			</label>
-			<label class="radio-container">
-				<input name="radio-basic" type="radio" value="1980"/>
-				<div class="radio ml6 mr6"></div>
-				1980
-			</label>
-			<label class="radio-container">
-				<input name="radio-basic" type="radio" value="2000" checked/>
-				<div class="radio ml6 mr6"></div>
-				2000
-			</label>
-		</form>
-	</div-->
-	<!-- <div id="ui-slider">
-		<label>
-			<span class="min">1900</span>
-			<span class="max">2000</span>
-			<input type="range" min="1900" max="2000" value="1900" step="100" class="decade-slider"/></input>
-		</label>
-	</div> -->
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
 	<script async defer src="https://api.mapbox.com/mapbox-assembly/v0.21.0/assembly.js"></script>
@@ -455,7 +394,7 @@
 					return {
 						color: '#ffffff',
 						weight: 1,
-						fillOpacity: 0,
+						//fillOpacity: 0,
 						fillColor: '#000000'
 					}
 				},
@@ -464,7 +403,7 @@
 						layer.setStyle({
 							color: '#f0f40f',
 							weight: 2
-						}).bringToFront();
+						})//.bringToFront();
 					})
 					layer.on('mouseout', function(){
 						layer.setStyle({
@@ -503,12 +442,14 @@
               color: '#f0f40f',
               weight: 2
             })//.bringToFront();
+						changeSVG();
           });
           layer.on('mouseout', function() {
             layer.setStyle({
               color: '#ffffff',
               weight: 1
             });
+						changeSVGback();
           });
           var tooltipInfo = layer.feature.properties["name"] + " County<br />pop. " + layer.feature.properties["year"] + ": "+ layer.feature.properties["population"].toLocaleString();
           layer.bindTooltip(tooltipInfo, {
@@ -543,6 +484,14 @@
 			} else {
 				$('#discussion-text').html(discussion2000)
 			}
+		}
+
+		function changeSVG() {
+			circle1.style.fill='yellow';
+		}
+
+		function changeSVGback() {
+			circle1.style.fill='red';
 		}
 
 	</script>
