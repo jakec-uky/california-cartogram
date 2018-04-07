@@ -7,7 +7,9 @@
 
 Through a series of cartograms, "A Century of Growth" charts the growth of population in California in the twentieth century, and highlights the uneven patterns of this growth across its various counties.
 
-The driver for this map has always been is to use the unique characteristics of the cartogram to help the user visualize the growth of California over time. Only the most populous counties were discernible, with limited labeling, in a previous, [static version of the map](https://jakecoolidge.wordpress.com/2009/08/14/population-cartogram-of-california-a-century-of-growth/). An animated version of the cartogram series, built using Adobe Flash (and therefore essentially lost to history), allowed the user to follow the transitions dynamically as it looped through the 20-year intervals, GIF-like. But the map lacked interactivity, greatly limiting its utility. By contrast, this new version allows users to scroll backward and forward through the intervals at their own pace and provides mouseover affordances at each stage, making the data much more accessible and reducing users' reliance on a legend to retrieve populations for individual counties.
+The driver for this map has always been is to use the unique characteristics of the cartogram to help the user visualize the growth of California over time. Only the most populous counties were discernible, with limited labeling, in a previous, static version of the map, shown below. An animated version of the cartogram series, built using Adobe Flash (and therefore essentially lost to history), allowed the user to follow the transitions dynamically as it looped through the 20-year intervals, GIF-like. But the map lacked interactivity, greatly limiting its utility. By contrast, this new version allows users to scroll backward and forward through the intervals at their own pace and provides mouseover affordances at each stage, making the data much more accessible and reducing users' reliance on a legend to retrieve populations for individual counties.
+
+<img src="ca_cartogram_scaled.png">
 
 <h2 id="cartogram-process">Cartogram Production Process</h2>
 
